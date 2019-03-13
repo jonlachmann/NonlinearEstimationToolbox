@@ -1,5 +1,5 @@
 
-function compileMex(varargin)
+function compileMex(varargin, debug)
     % Compile a MEX binary
     
     % >> This function/class is part of the Nonlinear Estimation Toolbox
@@ -31,6 +31,12 @@ function compileMex(varargin)
         
         options  = { ['CXXFLAGS=$CXXFLAGS ' cxxFlags], ...
                      ['LDFLAGS=$LDFLAGS ' ldFlags] };
+    end
+
+    % Check if the debug flag is set and compile the code to be debuggable
+    if debug
+        options{end + 1} = '-g';
+        disp 'Compiling with debug flag -g';
     end
     
     % Enable the MATLAB large-array-handling API
